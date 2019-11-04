@@ -1,0 +1,29 @@
+{
+  "name": "next9",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "@apollo/react-hooks": "^3.1.2",
+    "@apollo/react-ssr": "^3.1.2",
+    "@leveluptuts/fresh": "^0.0.22",
+    "apollo-boost": "^0.4.4",
+    "apollo-cache-inmemory": "^1.6.3",
+    "apollo-server-micro": "^2.9.6",
+    "dotenv": "^8.2.0",
+    "graphql-tag": "^2.10.1",
+    "graphql-toolkit": "^0.5.17",
+    "isomorphic-unfetch": "^3.0.0",
+    "mongoose": "^5.7.5",
+    "next": "9.1.1",
+    "react": "16.10.2",
+    "react-dom": "16.10.2"
+  },
+  "devDependencies": {
+    "babel-plugin-import-graphql": "^2.7.0"
+  }
+}
