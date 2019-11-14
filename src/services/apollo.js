@@ -65,12 +65,10 @@ export function withApollo(PageComponent) {
 }
 
 const initApolloClient = (initialState = {}) => {
-  const ssrMode = typeof window === 'undefined';
   // we load from cache if initialState
   const cache = new InMemoryCache().restore(initialState);
 
   const client = new ApolloClient({
-    ssrMode, // true on server side
     uri: 'http://localhost:3000/api/graphql',
     fetch, // we need to override the common apollo fetch to be able to use it on the client too
     cache,
