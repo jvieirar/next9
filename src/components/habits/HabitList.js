@@ -2,12 +2,16 @@ import React from 'react';
 import Habit from './Habit';
 
 const HabitList = props => {
+  // properties
+  const { habits } = props;
+
+  // render
   return (
     <section>
       <h2>My habits</h2>
-      <Habit />
-      <Habit />
-      <Habit />
+      {habits.map(habit => (
+        <Habit key={habit} habit={habit} />
+      ))}
     </section>
   );
 };
