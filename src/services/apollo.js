@@ -2,17 +2,18 @@ import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from '@apollo/react-hooks';
 import fetch from 'isomorphic-unfetch';
 import Head from 'next/head';
+import { InMemoryCache } from 'apollo-cache-inmemory';
 
 // higher order component to allow pages to access apollo Context. Wrapping _app.js causes issues
 export function withApollo(PageComponent) {
-  const WithApollo = props => {
+  const WithApollo = ({ apolloClient, apolloState, ...pageProps }) => {
     // properties
-    const client = initApolloClient();
+    const client = apolloClient || initApolloClient(apolloState);
 
     // render
     return (
       <ApolloProvider client={client}>
-        <PageComponent {...props} />
+        <PageComponent {...pageProps} />
       </ApolloProvider>
     );
   };
@@ -63,13 +64,16 @@ export function withApollo(PageComponent) {
   return WithApollo;
 }
 
-const initApolloClient = () => {
-  const ssrMode = window === 'undefined';
+const initApolloClient = (initialState = {}) => {
+  const ssrMode = typeof window === 'undefined';
+  // we load from cache if initialState
+  const cache = new InMemoryCache().restore(initialState);
 
   const client = new ApolloClient({
-    ssrMode,
+    ssrMode, // true on server side
     uri: 'http://localhost:3000/api/graphql',
     fetch, // we need to override the common apollo fetch to be able to use it on the client too
+    cache,
   });
   return client;
 };
